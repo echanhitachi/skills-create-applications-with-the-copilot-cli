@@ -12,7 +12,7 @@
  * negative numbers, decimals, zero, and division by zero.
  */
 
-const { add, subtract, multiply, divide } = require('../calculator');
+const { add, subtract, multiply, divide, modulo, power, squareRoot } = require('../calculator');
 
 describe('add', () => {
   test('2 + 3 = 5 (example from image)', () => {
@@ -117,5 +117,83 @@ describe('divide', () => {
 
   test('throws an error when dividing zero by zero', () => {
     expect(() => divide(0, 0)).toThrow('Division by zero is not allowed.');
+  });
+});
+
+describe('modulo', () => {
+  test('5 % 2 = 1 (example from image)', () => {
+    expect(modulo(5, 2)).toBe(1);
+  });
+
+  test('modulo with no remainder', () => {
+    expect(modulo(10, 5)).toBe(0);
+  });
+
+  test('modulo with negative dividend', () => {
+    expect(modulo(-7, 3)).toBe(-1);
+  });
+
+  test('modulo with negative divisor', () => {
+    expect(modulo(7, -3)).toBe(1);
+  });
+
+  test('modulo with decimals', () => {
+    expect(modulo(5.5, 2)).toBeCloseTo(1.5);
+  });
+
+  test('throws an error when modulo by zero', () => {
+    expect(() => modulo(5, 0)).toThrow('Modulo by zero is not allowed.');
+  });
+});
+
+describe('power', () => {
+  test('2 ^ 3 = 8 (example from image)', () => {
+    expect(power(2, 3)).toBe(8);
+  });
+
+  test('raises a number to the power of zero', () => {
+    expect(power(5, 0)).toBe(1);
+  });
+
+  test('raises a number to a negative exponent', () => {
+    expect(power(2, -2)).toBeCloseTo(0.25);
+  });
+
+  test('raises a negative base to an odd exponent', () => {
+    expect(power(-2, 3)).toBe(-8);
+  });
+
+  test('raises a negative base to an even exponent', () => {
+    expect(power(-2, 2)).toBe(4);
+  });
+
+  test('raises a decimal base to a power', () => {
+    expect(power(1.5, 2)).toBeCloseTo(2.25);
+  });
+});
+
+describe('squareRoot', () => {
+  test('√16 = 4 (example from image)', () => {
+    expect(squareRoot(16)).toBe(4);
+  });
+
+  test('square root of zero is zero', () => {
+    expect(squareRoot(0)).toBe(0);
+  });
+
+  test('square root of a non-perfect square', () => {
+    expect(squareRoot(2)).toBeCloseTo(1.4142135);
+  });
+
+  test('square root of a decimal number', () => {
+    expect(squareRoot(6.25)).toBeCloseTo(2.5);
+  });
+
+  test('throws an error for negative numbers', () => {
+    expect(() => squareRoot(-4)).toThrow('Cannot calculate the square root of a negative number.');
+  });
+
+  test('throws an error for negative decimal numbers', () => {
+    expect(() => squareRoot(-0.5)).toThrow('Cannot calculate the square root of a negative number.');
   });
 });
